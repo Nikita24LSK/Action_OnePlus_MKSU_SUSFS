@@ -212,9 +212,9 @@ jobs:
           if [ "${{ github.event.inputs.EBPF }}" = "true" ]; then
             sed -i '/CONFIG_IKHEADERS=/s/m/y/g' "$CONFIG_FILE"
 
-            sed -i '/CONFIG_CFI_CLANG=y/d' "$CONFIG_FILE"
-            sed -i '/CONFIG_RANDOMIZE_BASE=y/d' "$CONFIG_FILE"
-            sed -i '/CONFIG_SHADOW_CALL_STACK=y/d' "$CONFIG_FILE"
+            # sed -i '/CONFIG_CFI_CLANG=y/d' "$CONFIG_FILE"
+            # sed -i '/CONFIG_RANDOMIZE_BASE=y/d' "$CONFIG_FILE"
+            # sed -i '/CONFIG_SHADOW_CALL_STACK=y/d' "$CONFIG_FILE"
 
             echo "CONFIG_FTRACE=y" >> "$CONFIG_FILE"
             echo "CONFIG_FTRACE_SYSCALLS=y" >> "$CONFIG_FILE"
