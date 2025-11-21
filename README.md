@@ -1,5 +1,5 @@
-# 食用说明
-一加内核开源地址：[OnePlusOSS](https://github.com/OnePlusOSS/kernel_manifest)
+# Instructions for use
+一OnePlus open source kernel://github.com/OnePlusOSS/kernel_manifest)
 
-# 原始项目
+# Original project
 [MKSU-SKN](https://github.com/ShirkNeko/KernelSU)
