@@ -210,7 +210,7 @@ jobs:
 
           # Configure additional parameters for eBPF
           if [ "${{ github.event.inputs.EBPF }}" = "true" ]; then
-           # sed -i '/CONFIG_TRIM_UNUSED_KSYMS=y/d' "$CONFIG_FILE"
+            sed -i '/CONFIG_TRIM_UNUSED_KSYMS=y/d' "$CONFIG_FILE"
            
             echo "CONFIG_FTRACE=y" >> "$CONFIG_FILE"
             echo "CONFIG_UPROBES=y" >> "$CONFIG_FILE"
