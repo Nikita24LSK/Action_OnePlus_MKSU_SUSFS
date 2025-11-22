@@ -214,7 +214,7 @@ jobs:
            # sed -i '/CONFIG_TRIM_UNUSED_KSYMS=y/d' "$CONFIG_FILE"
            # echo "CONFIG_IKHEADERS=y" >> "$CONFIG_FILE"
            
-           # echo "CONFIG_FTRACE=y" >> "$CONFIG_FILE"
+            echo "CONFIG_FTRACE=y" >> "$CONFIG_FILE"
             echo "CONFIG_UPROBES=y" >> "$CONFIG_FILE"
             echo "CONFIG_UPROBE_EVENTS=y" >> "$CONFIG_FILE"
             echo "CONFIG_KPROBE_EVENTS=y" >> "$CONFIG_FILE"
