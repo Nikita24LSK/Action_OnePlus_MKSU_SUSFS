@@ -210,24 +210,19 @@ jobs:
 
           # Configure additional parameters for eBPF
           if [ "${{ github.event.inputs.EBPF }}" = "true" ]; then
-            sed -i '/CONFIG_IKHEADERS=/s/m/y/g' "$CONFIG_FILE"
+            sed -i '/CONFIG_IKHEADERS=m/d' "$CONFIG_FILE"
+            sed -i '/CONFIG_TRIM_UNUSED_KSYMS=y/d' "$CONFIG_FILE"
 
-            # sed -i '/CONFIG_CFI_CLANG=y/d' "$CONFIG_FILE"
-            # sed -i '/CONFIG_RANDOMIZE_BASE=y/d' "$CONFIG_FILE"
-            # sed -i '/CONFIG_SHADOW_CALL_STACK=y/d' "$CONFIG_FILE"
-
+            echo "CONFIG_IKHEADERS=y" >> "$CONFIG_FILE"
             echo "CONFIG_FTRACE=y" >> "$CONFIG_FILE"
-            echo "CONFIG_FTRACE_SYSCALLS=y" >> "$CONFIG_FILE"
             echo "CONFIG_UPROBES=y" >> "$CONFIG_FILE"
             echo "CONFIG_UPROBE_EVENTS=y" >> "$CONFIG_FILE"
             echo "CONFIG_KPROBE_EVENTS=y" >> "$CONFIG_FILE"
             echo "CONFIG_TRACING=y" >> "$CONFIG_FILE"
             echo "CONFIG_EVENT_TRACING=y" >> "$CONFIG_FILE"
-            echo "CONFIG_IRQSOFF_TRACER=y" >> "$CONFIG_FILE"
-            echo "CONFIG_PREEMPT_TRACER=y" >> "$CONFIG_FILE"
-            echo "CONFIG_CHECKPOINT_RESTORE=y" >> "$CONFIG_FILE"
-            echo "CONFIG_DEBUG_PREEMPT=y" >> "$CONFIG_FILE"
             echo "CONFIG_FUNCTION_TRACER=y" >> "$CONFIG_FILE"
+            echo "CONFIG_FTRACE_SYSCALLS=y" >> "$CONFIG_FILE"
+            echo "CONFIG_BPF_LSM=y" >> "$CONFIG_FILE"
           fi
 
           # Remove check_defconfig
