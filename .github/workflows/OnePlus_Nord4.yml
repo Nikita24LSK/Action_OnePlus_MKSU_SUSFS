@@ -221,7 +221,7 @@ jobs:
             
            # echo "CONFIG_FUNCTION_TRACER=y" >> "$CONFIG_FILE"
            # echo "CONFIG_FTRACE_SYSCALLS=y" >> "$CONFIG_FILE"
-            echo "CONFIG_BPF_LSM=y" >> "$CONFIG_FILE"
+           # echo "CONFIG_BPF_LSM=y" >> "$CONFIG_FILE"
           fi
 
           # Remove check_defconfig
