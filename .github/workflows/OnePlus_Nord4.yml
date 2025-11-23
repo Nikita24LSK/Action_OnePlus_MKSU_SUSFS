@@ -115,6 +115,10 @@ jobs:
           rm kernel_platform/common/android/abi_gki_protected_exports_* || echo "No protected exports!"
           rm kernel_platform/msm-kernel/android/abi_gki_protected_exports_* || echo "No protected exports!"
 
+
+          sed -i 's/^#\(choose_lto_type \$3\|choose_target_build \$4\|choose_repack_img \$5\)/\1/' kernel_platform/oplus/build/oplus_setup.sh
+          sed -i 's|^source kernel_platform/oplus/build/oplus_setup.sh \$1 \$2|source kernel_platform/oplus/build/oplus_setup.sh \$1 \$2 \$3 \$4 \$5|' kernel_platform/oplus/build/oplus_build_kernel.sh
+
       # Set kernel suffix
       - name: Change -dirty suffix
         run: |
@@ -212,6 +216,7 @@ jobs:
           if [ "${{ github.event.inputs.EBPF }}" = "true" ]; then
             sed -i '/CONFIG_TRIM_UNUSED_KSYMS=y/d' "$CONFIG_FILE"
            
+            echo "# CONFIG_TRIM_UNUSED_KSYMS is not set" >> "$CONFIG_FILE"
             echo "CONFIG_FTRACE=y" >> "$CONFIG_FILE"
             echo "CONFIG_UPROBES=y" >> "$CONFIG_FILE"
             echo "CONFIG_TRACING=y" >> "$CONFIG_FILE"
@@ -283,7 +288,7 @@ jobs:
         run: |
           cd kernel_workspace
           if [ "${CPU}" = "sm8650" ] || [ "${CPU}" = "sm7675" ]; then
-            ./kernel_platform/build_with_bazel.py -t ${CPUD} ${BUILD_METHOD}
+            ./kernel_platform/build_with_bazel.py -t ${CPUD} ${BUILD_METHOD} full all none
           else
             LTO=thin SYSTEM_DLKM_RE_SIGN=0 BUILD_SYSTEM_DLKM=0 KMI_SYMBOL_LIST_STRICT_MODE=0 ./kernel_platform/oplus/build/oplus_build_kernel.sh ${CPUD} ${BUILD_METHOD}
           fi
