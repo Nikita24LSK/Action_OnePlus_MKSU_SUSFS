@@ -290,7 +290,7 @@ jobs:
           ./kernel_platform/oplus/build/oplus_build_kernel.sh ${CPUD} ${BUILD_METHOD} full all none
 
           # if [ "${CPU}" = "sm8650" ] || [ "${CPU}" = "sm7675" ]; then
-          #   ./kernel_platform/build_with_bazel.py -t ${CPUD} ${BUILD_METHOD} full all none
+          #   ./kernel_platform/build_with_bazel.py -t ${CPUD} ${BUILD_METHOD}
           # else
           #   LTO=thin SYSTEM_DLKM_RE_SIGN=0 BUILD_SYSTEM_DLKM=0 KMI_SYMBOL_LIST_STRICT_MODE=0 ./kernel_platform/oplus/build/oplus_build_kernel.sh ${CPUD} ${BUILD_METHOD}
           # fi
