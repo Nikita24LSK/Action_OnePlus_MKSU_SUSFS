@@ -115,10 +115,6 @@ jobs:
           rm kernel_platform/common/android/abi_gki_protected_exports_* || echo "No protected exports!"
           rm kernel_platform/msm-kernel/android/abi_gki_protected_exports_* || echo "No protected exports!"
 
-
-          sed -i 's/^#\(choose_lto_type \$3\|choose_target_build \$4\|choose_repack_img \$5\)/\1/' kernel_platform/oplus/build/oplus_setup.sh
-          sed -i 's|^source kernel_platform/oplus/build/oplus_setup.sh \$1 \$2|source kernel_platform/oplus/build/oplus_setup.sh \$1 \$2 \$3 \$4 \$5|' kernel_platform/oplus/build/oplus_build_kernel.sh
-
       # Set kernel suffix
       - name: Change -dirty suffix
         run: |
@@ -223,10 +219,6 @@ jobs:
             echo "CONFIG_EVENT_TRACING=y" >> "$CONFIG_FILE"
             echo "CONFIG_UPROBE_EVENTS=y" >> "$CONFIG_FILE"
             echo "CONFIG_KPROBE_EVENTS=y" >> "$CONFIG_FILE"
-            
-           # echo "CONFIG_FUNCTION_TRACER=y" >> "$CONFIG_FILE"
-           # echo "CONFIG_FTRACE_SYSCALLS=y" >> "$CONFIG_FILE"
-           # echo "CONFIG_BPF_LSM=y" >> "$CONFIG_FILE"
           fi
 
           # Remove check_defconfig
@@ -287,13 +279,12 @@ jobs:
       - name: Build kernel
         run: |
           cd kernel_workspace
-          ./kernel_platform/oplus/build/oplus_build_kernel.sh ${CPUD} ${BUILD_METHOD} full all none
 
-          # if [ "${CPU}" = "sm8650" ] || [ "${CPU}" = "sm7675" ]; then
-          #   ./kernel_platform/build_with_bazel.py -t ${CPUD} ${BUILD_METHOD}
-          # else
-          #   LTO=thin SYSTEM_DLKM_RE_SIGN=0 BUILD_SYSTEM_DLKM=0 KMI_SYMBOL_LIST_STRICT_MODE=0 ./kernel_platform/oplus/build/oplus_build_kernel.sh ${CPUD} ${BUILD_METHOD}
-          # fi
+          if [ "${CPU}" = "sm8650" ] || [ "${CPU}" = "sm7675" ]; then
+            ./kernel_platform/build_with_bazel.py -t ${CPUD} ${BUILD_METHOD}
+          else
+            LTO=thin SYSTEM_DLKM_RE_SIGN=0 BUILD_SYSTEM_DLKM=0 KMI_SYMBOL_LIST_STRICT_MODE=0 ./kernel_platform/oplus/build/oplus_build_kernel.sh ${CPUD} ${BUILD_METHOD}
+          fi
 
       - name: Make AnyKernel3
         run: |
